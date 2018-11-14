@@ -4,6 +4,7 @@ require 'sinatra/base'
 require './controllers/ApplicationController'
 
 # models will go here
+require './models/ItemModel'
 
 # map out the routes
 map('/') {
