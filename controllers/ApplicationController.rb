@@ -19,8 +19,13 @@ class ApplicationController < Sinatra::Base
     # because the client is still waiting for that response
     binding.pry
 
-
     @hey
   end
+
+  get '/template' do
+    erb :hello
+
+  end
+
 
 end
