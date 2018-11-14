@@ -12,6 +12,11 @@ class ApplicationController < Sinatra::Base
     :database => 'salty_items'
   )
 
+  # use some middleware to allow us to process delete/put/patch etc requests
+  use Rack::MethodOverride # like express, we "use" middleware in Rack-based libraries/frameworks
+  set :method_override, true
+
+
   # teach it where views live
   set :views, File.expand_path('../../views', __FILE__)
 

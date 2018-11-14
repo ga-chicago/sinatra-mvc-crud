@@ -3,6 +3,10 @@
 <% @items.each do |item| %>
   <li>
     <%= item.content %> 
+    <form action="/items/<%=item.id%>" method="POST">
+      <input type="hidden" name="_method" value="DELETE">
+      <button>Delete!</button>
+    </form>  
   </li>
 <% end %>  
 </ul>

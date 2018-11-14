@@ -30,4 +30,14 @@ class ItemController < ApplicationController
 
   end 
 
+  delete '/:id' do
+    # pp params
+    item = Item.find params[:id] # this runs an SQL SELECT query
+
+    item.destroy # this will run the SQL DELETE query
+
+    redirect '/items'
+
+  end
+
 end
