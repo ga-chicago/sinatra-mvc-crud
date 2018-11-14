@@ -6,6 +6,12 @@ class ApplicationController < Sinatra::Base
   require 'bundler'
   Bundler.require()
 
+  # set up db connection
+  ActiveRecord::Base.establish_connection(
+    :adapter => 'postgresql',
+    :database => 'salty_items'
+  )
+
   # teach it where views live
   set :views, File.expand_path('../../views', __FILE__)
 
