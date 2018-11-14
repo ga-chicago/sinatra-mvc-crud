@@ -6,6 +6,11 @@ class ApplicationController < Sinatra::Base
   require 'bundler'
   Bundler.require()
 
+  set :views, File.expand_path('../../views', __FILE__)
+
+
+
+
   get '/' do
     @hey = "hey shilpa with the shoes"
 
