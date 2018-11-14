@@ -6,8 +6,11 @@ class ApplicationController < Sinatra::Base
   require 'bundler'
   Bundler.require()
 
+  # teach it where views live
   set :views, File.expand_path('../../views', __FILE__)
 
+  # teach it where static assets live
+  set :public_dir, File.expand_path('../../public', __FILE__)
 
 
 
