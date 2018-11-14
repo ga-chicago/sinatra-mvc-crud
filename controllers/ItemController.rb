@@ -8,4 +8,26 @@ class ItemController < ApplicationController
 
     erb :item_index
   end
+
+  # new -- show form to add
+  get '/new' do
+    erb :item_new
+  end
+
+  # create 
+  post '/' do
+    pp params[:content]
+
+    item = Item.new
+    puts "here comes a new item where we haven't set any values yet"
+    pp item
+
+    item.content = params[:content]
+
+    item.save # this actually runs the SQL insert query
+
+    redirect '/items' # send them back to items index
+
+  end 
+
 end
