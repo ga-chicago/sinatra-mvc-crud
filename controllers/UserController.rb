@@ -17,24 +17,58 @@ class UserController < ApplicationController
     # remember JSON, once serialized, IS A STRING
     # params.to_json # since JSON is a string, this will work
                     # as an implicit/automatic return
-    user = User.new 
-    user.username = params[:username]
-    user.password = params[:password]
-    user.save
-    session[:logged_in] = true
-    session[:username] = user.username
-    session[:message] = {
-      status: "good",
-      text: "User #{user.username} successfully created"
-    }
-    redirect '/items'
+    extant_user = User.find_by :username => params[:username]
+    if extant_user
+      session[:message] = {
+        status: "bad",
+        text: "Username #{params[:username]} already taken"
+      }
+      redirect '/user/register'
+    else
 
-  end
+      user = User.new 
+      user.username = params[:username]
+      user.password = params[:password]
+      user.save
+      session[:logged_in] = true
+      session[:username] = user.username
+      session[:message] = {
+        status: "good",
+        text: "User #{user.username} successfully created"
+      }
+      redirect '/items'
+    end
+
+  end # post '/register'
 
   # log in
   post '/login' do
-    params.to_json
-  end
+    # find the user with username from params
+    user = User.find_by(:username => params[:username])
+
+    # check password
+    # if it's good 
+    if user and user.password == params[:password]
+      # session stuff -- tell app user logged in
+      session[:logged_in] = true
+      session[:username] = user.username
+      session[:message] = {
+        status: "good",
+        text: "User #{user.username} successfully logged in, Welcome back"
+      }
+      redirect '/items'
+    # if it's bad
+    else
+      # error message
+      session[:message] = {
+        status: "bad",
+        text: "Invalid username or password."
+      }
+      # send back to login
+      redirect '/user/login'
+    end
+
+  end # post 'login'
 
   # log out
   get '/logout' do
