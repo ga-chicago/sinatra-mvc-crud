@@ -14,3 +14,10 @@ body {
   border: 2px solid blue;
   background-color: lightblue;
 }
+nav {
+  width: 49%;
+  display: inline-block;
+}
+nav:last-child {
+  text-align: right;
+}
