@@ -1,5 +1,20 @@
 # all other controllers inherit from ApplicationController
 class ItemController < ApplicationController
+
+  # this is called a filter -- it wil be run on all routes
+  # you can customize it to only run on certain routes
+
+  before do
+    if !session[:logged_in]
+      session[:message] = {
+        status: "neutral",
+        text: "You must be logged in to do that"
+      }
+      redirect '/user/login'
+    end
+  end
+
+
   # index
   get '/' do
     # get all the items
