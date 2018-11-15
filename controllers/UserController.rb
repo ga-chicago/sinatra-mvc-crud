@@ -15,8 +15,20 @@ class UserController < ApplicationController
     # to send json, you must already have a hash
     # .to_json will convert it to JSON
     # remember JSON, once serialized, IS A STRING
-    params.to_json # since JSON is a string, this will work
+    # params.to_json # since JSON is a string, this will work
                     # as an implicit/automatic return
+    user = User.new 
+    user.username = params[:username]
+    user.password = params[:password]
+    user.save
+    session[:logged_in] = true
+    session[:username] = user.username
+    session[:message] = {
+      status: "good",
+      text: "User #{user.username} successfully created"
+    }
+    redirect '/items'
+
   end
 
   # log in
@@ -26,12 +38,14 @@ class UserController < ApplicationController
 
   # log out
   get '/logout' do
-    # session[:message] = {
-    #   :status => "neutral",
-    #   :text => "You just tried to log out"
-    # }
-    # redirect '/login'
-    "logout"
+    username = session[:username]
+    session.destroy    
+    session[:message] = {
+      :status => "neutral",
+      :text => "User #{username} logged out."
+    }
+    redirect '/user/login'
+
   end
 
 end
