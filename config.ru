@@ -6,6 +6,7 @@ require './controllers/ItemController'
 
 # models will go here
 require './models/ItemModel'
+require './models/UserModel'
 
 # map out the routes
 map('/') {
