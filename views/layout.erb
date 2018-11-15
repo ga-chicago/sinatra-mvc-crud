@@ -15,7 +15,7 @@
 
   <!-- you have access to the session inside template!!! isn't that great! -->
   <% if session[:message] %>
-    <p class="message"><%= session[:message][:text] %></p>
+    <p class="message <%= session[:message][:status] %>"><%= session[:message][:text] %></p>
   <% 
     end 
     session[:message] = nil # so that the user won't keep seeing the message after the first time
