@@ -26,19 +26,20 @@ class ApplicationController < Sinatra::Base
 
 
   get '/' do
-    @hey = "hey shilpa with the shoes"
+    # @hey = "hey shilpa with the shoes"
 
-    # binding.pry will pause exectuion and 
-    # open a REPL where you can mess around in that scope in the code
-    # you can inspect variables
-    # test out DB queries
-    # you can enter ruby statements directly
-    # whatever
-    # just be sure to type exit when you're done
-    # because the client is still waiting for that response
-    binding.pry
+    # # binding.pry will pause exectuion and 
+    # # open a REPL where you can mess around in that scope in the code
+    # # you can inspect variables
+    # # test out DB queries
+    # # you can enter ruby statements directly
+    # # whatever
+    # # just be sure to type exit when you're done
+    # # because the client is still waiting for that response
+    # binding.pry
 
-    @hey
+    # @hey
+    redirect '/items'
   end
 
   get '/template' do
