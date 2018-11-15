@@ -28,6 +28,8 @@ class UserController < ApplicationController
 
       user = User.new 
       user.username = params[:username]
+      # adding has_secure password to the model makes this 
+      # use bcrypt
       user.password = params[:password]
       user.save
       session[:logged_in] = true
@@ -46,9 +48,11 @@ class UserController < ApplicationController
     # find the user with username from params
     user = User.find_by(:username => params[:username])
 
+    pw = params[:password]
+
     # check password
     # if it's good 
-    if user and user.password == params[:password]
+    if user and user.authenticate(pw)
       # session stuff -- tell app user logged in
       session[:logged_in] = true
       session[:username] = user.username
