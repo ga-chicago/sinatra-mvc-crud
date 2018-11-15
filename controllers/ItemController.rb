@@ -26,6 +26,11 @@ class ItemController < ApplicationController
 
     item.save # this actually runs the SQL insert query
 
+    session[:message] = {
+      status: "good",
+      text: "Succesfully created item #{item.id}"
+    }
+
     redirect '/items' # send them back to items index
 
   end 
@@ -42,6 +47,10 @@ class ItemController < ApplicationController
     item = Item.find params[:id]
     item.content = params[:content]
     item.save
+    session[:message] = {
+      status: "good",
+      text: "Succesfully updated item #{item.id}"
+    }
     redirect '/items'
   end
   
@@ -51,7 +60,10 @@ class ItemController < ApplicationController
     item = Item.find params[:id] # this runs an SQL SELECT query
 
     item.destroy # this will run the SQL DELETE query
-
+    session[:message] = {
+      status: "good",
+      text: "Succesfully deleted item #{item.id}"
+    }
     redirect '/items'
 
   end
