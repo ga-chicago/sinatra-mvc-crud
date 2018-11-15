@@ -30,6 +30,15 @@ class ItemController < ApplicationController
 
   end 
 
+  # edit
+  get '/:id/edit' do
+    @item = Item.find params[:id] # querying a DB using ActiveRecord ORM
+                                  # Object Relational Mapper
+    erb :item_edit
+  end
+
+
+  # destroy
   delete '/:id' do
     # pp params
     item = Item.find params[:id] # this runs an SQL SELECT query
