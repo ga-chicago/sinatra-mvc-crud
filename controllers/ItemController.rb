@@ -19,8 +19,13 @@ class ItemController < ApplicationController
   get '/' do
     # get all the items
     # pass them to template
-    @items = Item.all # this would be like Item.find({}) in mongoose
+    # @items = Item.all # this would be like Item.find({}) in mongoose
 
+    # get DB  record corresponding to the username in session
+    user = User.find_by username: session[:username]
+
+    @items = user.items # pretty sweet amirite
+    
     erb :item_index
   end
 
@@ -31,13 +36,13 @@ class ItemController < ApplicationController
 
   # create 
   post '/' do
-    pp params[:content]
+    # get the user from DB corresponding to username in session
+    logged_in_user = User.find_by username: session[:username]
 
     item = Item.new
-    puts "here comes a new item where we haven't set any values yet"
-    pp item
 
     item.content = params[:content]
+    item.user_id = logged_in_user.id
 
     item.save # this actually runs the SQL insert query
 

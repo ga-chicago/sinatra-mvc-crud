@@ -39,7 +39,7 @@ class ApplicationController < Sinatra::Base
     # # whatever
     # # just be sure to type exit when you're done
     # # because the client is still waiting for that response
-    # binding.pry
+    binding.pry
 
     # @hey
     redirect '/items'
