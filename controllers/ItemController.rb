@@ -37,7 +37,14 @@ class ItemController < ApplicationController
     erb :item_edit
   end
 
-
+  # update
+  put '/:id' do
+    item = Item.find params[:id]
+    item.content = params[:content]
+    item.save
+    redirect '/items'
+  end
+  
   # destroy
   delete '/:id' do
     # pp params
