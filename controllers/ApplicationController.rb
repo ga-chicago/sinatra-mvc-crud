@@ -48,4 +48,11 @@ class ApplicationController < Sinatra::Base
   end
 
 
+  get '*' do
+    response = ""
+    404.times { response += "404 "}
+    response
+  end
+
+
 end
