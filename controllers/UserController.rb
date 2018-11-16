@@ -5,14 +5,6 @@ class UserController < ApplicationController
     erb :login
   end
 
-  post '/api/login' do # get '/users/api/login'
-    {
-      :status => 200,
-      :message => "you hit the login route, cors is ok?",
-      :submitted => params
-    }.to_json
-  end
-
   # show registration form
   get '/register' do
     erb :register
@@ -81,6 +73,21 @@ class UserController < ApplicationController
     end
 
   end # post 'login'
+
+
+  post '/api/login' do # get '/users/api/login'
+
+    # we need to do this to receive JSON in a request
+    payload_body = request.body.read
+    payload = JSON.parse(payload_body).symbolize_keys
+    
+    {
+      :status => 200,
+      :message => "you hit the login route, cors is ok?",
+      :submitted => payload
+    }.to_json
+  end
+
 
   # log out
   get '/logout' do
