@@ -14,21 +14,6 @@ class ItemController < ApplicationController
   #   end
   # end
 
-
-  # index
-  get '/' do
-    # get all the items
-    # pass them to template
-    # @items = Item.all # this would be like Item.find({}) in mongoose
-
-    # get DB  record corresponding to the username in session
-    user = User.find_by username: session[:username]
-
-    @items = user.items # pretty sweet amirite
-    
-    erb :item_index
-  end
-
   # api index 
   get '/api' do # get '/items/api'
     # Using a model made with ActiveRecord ORM to query the db

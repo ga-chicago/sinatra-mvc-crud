@@ -99,7 +99,7 @@ class UserController < ApplicationController
       }.to_json
     end
 
-  end
+  end # post '/api/login' 
 
 
   # log out
