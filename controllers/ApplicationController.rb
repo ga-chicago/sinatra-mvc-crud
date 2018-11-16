@@ -15,6 +15,19 @@ class ApplicationController < Sinatra::Base
     :database => 'salty_items'
   )
 
+  # enable cors
+  register Sinatra::CrossOrigin
+
+  configure do
+    enable :cross_origin
+  end
+
+  set :allow_origin, :any
+  set :allow_credentials, true
+  set :allow_methods, [:get, :post, :put, :patch, :delete, :options]
+
+
+
   # use some middleware to allow us to process delete/put/patch etc requests
   use Rack::MethodOverride # like express, we "use" middleware in Rack-based libraries/frameworks
   set :method_override, true
@@ -26,6 +39,16 @@ class ApplicationController < Sinatra::Base
   # teach it where static assets live
   set :public_dir, File.expand_path('../../public', __FILE__)
 
+
+  # telling the browser what's ok and what's not
+  options '*' do 
+    puts "options request received"
+    response.headers['Allow'] = 'HEAD, GET, POST, PUT, PATCH, DELETE, OPTIONS'
+    response.headers['Access-Control-Allow-Origin'] = 'http://localhost:3000'
+    response.headers['Access-Control-Allow-Credentials'] = 'true'
+    response.headers["Access-Control-Allow-Headers"] = "X-Requested-With, X-HTTP-Method-Override, Authorization, Content-Type, Cache-Control, Accept"
+    200 #this is the status code & also sends a response
+  end
 
 
   get '/' do

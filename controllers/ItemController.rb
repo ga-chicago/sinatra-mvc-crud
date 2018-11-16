@@ -4,15 +4,15 @@ class ItemController < ApplicationController
   # this is called a filter -- it wil be run on all routes
   # you can customize it to only run on certain routes
 
-  before do
-    if !session[:logged_in]
-      session[:message] = {
-        status: "neutral",
-        text: "You must be logged in to do that"
-      }
-      redirect '/user/login'
-    end
-  end
+  # before do
+  #   if !session[:logged_in]
+  #     session[:message] = {
+  #       status: "neutral",
+  #       text: "You must be logged in to do that"
+  #     }
+  #     redirect '/user/login'
+  #   end
+  # end
 
 
   # index
@@ -27,6 +27,21 @@ class ItemController < ApplicationController
     @items = user.items # pretty sweet amirite
     
     erb :item_index
+  end
+
+  # api index 
+  get '/api' do # get '/items/api'
+    # Using a model made with ActiveRecord ORM to query the db
+    # .find_by is a query method
+    username = "reuben"
+    user = User.find_by username: username
+
+    # writing our response
+    {
+      status: 200,
+      items: user.items
+    }.to_json
+
   end
 
   # new -- show form to add

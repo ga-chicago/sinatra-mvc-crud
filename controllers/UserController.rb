@@ -5,6 +5,14 @@ class UserController < ApplicationController
     erb :login
   end
 
+  post '/api/login' do # get '/users/api/login'
+    {
+      :status => 200,
+      :message => "you hit the login route, cors is ok?",
+      :submitted => params
+    }.to_json
+  end
+
   # show registration form
   get '/register' do
     erb :register
