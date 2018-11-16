@@ -81,11 +81,24 @@ class UserController < ApplicationController
     payload_body = request.body.read
     payload = JSON.parse(payload_body).symbolize_keys
     
-    {
-      :status => 200,
-      :message => "you hit the login route, cors is ok?",
-      :submitted => payload
-    }.to_json
+    user = User.find_by username: payload[:username]
+    pw = payload[:password]
+
+    if user and user.authenticate pw
+      session[:logged_in] = true
+      session[:username] = user.username
+      {
+        status: 200,
+        message: "Login successful",
+        logged_in_as: user.username
+      }.to_json
+    else
+      {
+        status: 403,
+        message: "Invalid username or password"
+      }.to_json
+    end
+
   end
 
 
